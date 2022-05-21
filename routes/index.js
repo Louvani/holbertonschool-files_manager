@@ -1,7 +1,8 @@
-const express = require('express');
+import AppController from '../controllers/AppController';
+import UsersController from '../controllers/UsersController';
+import AuthController from '../controllers/AuthController';
 
-const getStatus = require('../controllers/AppController');
-const getStats = require('../controllers/AppController');
+const express = require('express');
 
 const router = express.Router();
 
@@ -10,7 +11,14 @@ module.exports = () => {
     res.sendStatus(200);
   });
 
-  router.get('/status', getStatus);
-  router.get('/stats', getStats);
+  router.get('/status', AppController.getStatus);
+  router.get('/stats', AppController.getStats);
+
+  router.post('/users', UsersController.postNew);
+  router.get('/users/me', UsersController.getMe);
+
+  router.get('/connect', AuthController.getConnect);
+  router.get('/disconnect', AuthController.getDisconnect);
+
   return router;
 };
